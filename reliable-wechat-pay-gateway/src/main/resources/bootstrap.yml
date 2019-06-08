@@ -1,0 +1,37 @@
+server:
+  port: 8200
+eureka:
+  instance:
+    prefer-ip-address: true #开启ip注册 
+    ip-address: 47.92.98.17
+       #设置注册的ip [默认获取第一个非回环IP地址,阿里云获取到内网ip] 
+  client:
+    service-url:
+      defaultZone: http://47.92.98.17:8000/eureka/
+spring:
+  application:
+    name: reliable-wechat-pay-gateway
+  cloud:
+    config:
+      name: rabbitmq-bus,gateway-discovery,weixin-info,logback-web-debug,gateway-weixin-pay #此处指定多个文件名即可
+      profile: dev
+      label: master
+      discovery:
+        enabled: true
+        service-id: reliable-config
+    gateway:
+      routes:
+        - id: pay
+          uri: http://localhost:8080
+          order: 0
+          predicates:
+            - Path=/weixinpay/**
+          filters:
+            - StripPrefix=1
+            - AddResponseHeader=X-Response-Default-Foo, Default-Bar
+            - RemoveRequestHeader=Origin
+            - Validate=true
+            - name: Hystrix
+              args:
+                name: fallbackcmd
+                fallbackUri: forward:/fallback/wechat/pay/order
