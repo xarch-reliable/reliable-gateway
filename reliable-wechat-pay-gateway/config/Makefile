@@ -3,6 +3,8 @@ NAME=reliable-wechat-pay-gateway
 PORT=8200
 FILE=/var/spring-project/reliable8
 
+all:config restart
+
 create:config docker run
 
 all:config restart
