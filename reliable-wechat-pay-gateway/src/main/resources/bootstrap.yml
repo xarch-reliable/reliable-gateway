@@ -13,7 +13,7 @@ spring:
     name: reliable-wechat-pay-gateway
   cloud:
     config:
-      name: rabbitmq-bus,gateway-discovery,weixin-info,logback-web-debug,gateway-weixin-pay #此处指定多个文件名即可
+      name: rabbitmq-bus,gateway-discovery,weixin-info,logback-web-debug,gateway-weixin-pay,gateway-hystrix-timeout #此处指定多个文件名即可
       profile: dev
       label: master
       discovery:
