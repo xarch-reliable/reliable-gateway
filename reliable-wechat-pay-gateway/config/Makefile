@@ -7,8 +7,6 @@ all:config restart
 
 create:config docker run
 
-all:config restart
-
 config:
 	mkdir -p $(FILE)/$(NAME)
 	cp -i ../target/$(NAME)-$(VERSION).jar $(FILE)/$(NAME)/app.jar
