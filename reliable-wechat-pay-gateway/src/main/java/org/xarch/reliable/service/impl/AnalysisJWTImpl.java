@@ -1,5 +1,7 @@
 package org.xarch.reliable.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -14,6 +16,8 @@ import io.jsonwebtoken.Claims;
 @Service
 public class AnalysisJWTImpl implements AnalysisJWT {
 
+	private static final Logger logger = LoggerFactory.getLogger(AnalysisJWTImpl.class);
+	
 	private static final String AUTHORIZE_TOKEN = "Authorization";
 	
 	@Autowired
@@ -32,8 +36,8 @@ public class AnalysisJWTImpl implements AnalysisJWT {
 		}
 		// TODO JWT -> getToken
 		try {
-			System.out.println("[token]"+token);
-			System.out.println("[jwt]"+wxConfig.getJwtKey());
+			logger.info("[token]"+token);
+			logger.info("[jwt]"+wxConfig.getJwtKey());
 			Claims claims = JwtUtils.parseJWT(wxConfig.getJwtKey(),token);
 			return (String) claims.get("openid");
 		} catch (Exception e) {
