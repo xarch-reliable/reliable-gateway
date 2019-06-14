@@ -19,19 +19,3 @@ spring:
       discovery:
         enabled: true
         service-id: reliable-config
-    gateway:
-      routes:
-        - id: pay
-          uri: http://localhost:8080
-          order: 0
-          predicates:
-            - Path=/weixinpay/**
-          filters:
-            - StripPrefix=1
-            - AddResponseHeader=X-Response-Default-Foo, Default-Bar
-            - RemoveRequestHeader=Origin
-            - Validate=true
-            - name: Hystrix
-              args:
-                name: fallbackcmd
-                fallbackUri: forward:/fallback/wechat/pay/order
