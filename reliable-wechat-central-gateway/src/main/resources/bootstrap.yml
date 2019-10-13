@@ -3,7 +3,7 @@ server:
 eureka:
   instance:
     prefer-ip-address: true #开启ip注册 
-    ip-address: 47.104.89.2
+    ip-address: 47.104.22.109
        #设置注册的ip [默认获取第一个非回环IP地址,阿里云获取到内网ip] 
   client:
     service-url:
